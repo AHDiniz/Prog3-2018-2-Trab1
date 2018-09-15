@@ -1,0 +1,6 @@
+Tarefas a serem feitas:
+
+1 - Criar uma classe Candidato;
+2 - Criar uma classe Coligação;
+3 - Implementar leitura do arquivo CSV;
+4 - Criar e imprimir a saída do arquivo;
