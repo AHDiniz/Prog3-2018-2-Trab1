@@ -1,0 +1,20 @@
+Coisas que o programa deve fazer:
+
+1 - Ler o arquivo CSV para retirar dados de um candidato:
+    - Eleito ou não;
+    - Número de identificação;
+    - Nome;
+    - Coligação;
+    - Porcentagem de votos válidos.
+2 - Armazenar esses dados em objetos da classe Candidato;
+3 - Fazer com que os seguintes dados sejam calculados/armazenados:
+    - Número de vagas;
+    - Candidatos eleitos;
+    - Candidatos mais votados no nº de vagas;
+    - Candidatos que seriam eleitos se a votação fosse majoritária;
+    - Candidatos que não seriam eleitos se a votação fosse majoritária;
+    - Votos por coligação;
+    - Número de eleitos por coligação;
+    - Total de votos nominais;
+
+OBS.: A saída deve estar ordenada de forma decrescente em relação aos votos.
