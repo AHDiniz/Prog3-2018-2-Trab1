@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Programs entry point:
+ * Program's entry point:
  * 
  * TODO: CSV file reader
  */

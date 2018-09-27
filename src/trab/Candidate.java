@@ -11,6 +11,7 @@ public class Candidate
 
     /**
      * Candidate's constructor
+     * 
      * @param name Candidate's name
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
