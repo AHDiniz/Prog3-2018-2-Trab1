@@ -44,9 +44,9 @@ public class Coalition
     /**
      * @return Copy of the coalition's parties set
      */
-    public Set<String> getParties()
+    public HashSet<String> getParties()
     {
-        return new Set<String>(parties);
+        return new HashSet<String>(parties);
     }
 
     /**

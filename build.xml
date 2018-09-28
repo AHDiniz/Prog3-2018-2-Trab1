@@ -1,36 +1,40 @@
-<project name="TrabalhoPROG3_2018_2" default="compile" basedir=".">
+<project name="Prog3-2018-2-Trab1" default="init" basedir=".">
     
     <description>Arquivo de build do trabalho de Prog3, 2018/2</description>
     
-    <property name="src" location="src">
-    <property name="bin" location="bin">
-    <property name="mainClass" value="trab.Program">
-    
+    <property name="src" location="src"/>
+    <property name="bin" location="bin"/>
+    <property name="mainClass" value="trab.Program"/>
+
     <target name="init" description="Inicializa as estruturas necessárias.">
         <tstamp/>
-        <mkdir dir="${bin}">
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac destdir="${bin}">
+            <src path="${src}"/>
+        </javac>
     </target>
 
     <target name="jar" depends="compile">
-        <jar destfile="vereadores.jar" basedir="${bin}">
-            <attribute name="Main-Class" value="${mainClass}">
-        </jar>
+        <jar destfile="vereadores.jar" basedir="${bin}"/>
     </target>
 
     <target name="run" description="Executa o programa principal.">
         <java classname="${mainClass}">
             <arg value="divulga.csv"/>
-            <arg value="UTF-8">
+            <arg value="UTF-8"/>
             <classpath>
-                <pathelement path="${bin}">
+                <pathelement path="${bin}"/>
             </classpath>
         </java>
     </target>
 
     <target name="clean" description="Limpa o diretório.">
-        <delete dir="${bin}">
+        <delete dir="${bin}"/>
         <delete>
-            <fileset dir="." includes="*.csv">
+            <fileset dir="." includes="*.csv"/>
         </delete>
     </target>
 
