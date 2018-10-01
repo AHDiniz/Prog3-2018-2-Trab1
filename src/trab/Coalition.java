@@ -13,7 +13,7 @@ public class Coalition
     // Coalition's parties set:
     private Set<String> parties = new HashSet<String>();
     // Coalition's cadidates set:
-    private Map<Integer, Candidate> candidates = new HashMap<Integer, Candidate>();
+    private Set<Candidate> candidates = new HashSet<Candidate>();
     // Coalition's number of votes:
     private int votes;
 
@@ -50,18 +50,27 @@ public class Coalition
     }
 
     /**
-     * @return Map with the names of the candidates in the coalition's set
+     * @return Copy of the candidates set
      */
-    public HashMap<Integer, String> getCandidates()
+    public HashSet<Candidate> getCandidates()
     {
-        HashMap<Integer, String> names = new HashMap<Integer, String>(); // Creating the map of the candidates' ids and names
-        Iterator it = candidates.entrySet().iterator(); // This iterator will help with running through the map
-        while (it.hasNext()) // While there's a next item in the map
+        HashSet<Candidate> c = new HashSet<Candidate>();
+        for (Candidate candidate : candidates)
         {
-            // Creating an item of the candidates map and putting it in the names map:
-            Map.Entry<Integer, Candidate> pair = (Map.Entry<Integer, Candidate>)it.next();
-            names.put(pair.getKey(), pair.getValue().getName());
+            c.add(new Candidate(candidate));    
         }
-        return names; // Returning the created map
+        return c; // Returning the created set
+    }
+
+    /**
+     * @return String coversion of the coalition
+     */
+    @Override
+    public String toString()
+    {
+        String ret = "Coligação: ";
+        Iterator it = candidates.entrySet().iterator(); // Iterator that will run through the candidates map
+        ret += "\n";
+        return ret;
     }
 }

@@ -24,6 +24,18 @@ public class Candidate
     }
 
     /**
+     * Candidate's constructor
+     * 
+     * @param candidate Original candidate
+     */
+    public Candidate(Candidate candidate)
+    {
+        this.name = candidate.name;
+        this.party = candidate.party;
+        this.votes = candidate.votes;
+    }
+
+    /**
      * @return Candidate's name
      */
     public String getName()
@@ -45,5 +57,16 @@ public class Candidate
     public int getVotes()
     {
         return votes;
+    }
+
+    /**
+     * @return String convertion of the candidate
+     */
+    @Override
+    public String toString()
+    {
+        String ret = "";
+        ret += name;
+        return ret;
     }
 }
