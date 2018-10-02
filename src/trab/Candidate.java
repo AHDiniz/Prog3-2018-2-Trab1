@@ -6,7 +6,7 @@ package trab;
 public class Candidate
 {
     private String name; // Candidate's name
-    private String party; // Candidate's party
+    private Party party; // Candidate's party
     private int votes; // Candidate's amount of votes
 
     /**
@@ -16,10 +16,10 @@ public class Candidate
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      */
-    public Candidate(String name, String party, int votes)
+    public Candidate(String name, Party party, int votes)
     {
         this.name = name;
-        this.party = party;
+        this.party = new Party(party);
         this.votes = votes;
     }
 
@@ -31,7 +31,7 @@ public class Candidate
     public Candidate(Candidate candidate)
     {
         this.name = candidate.name;
-        this.party = candidate.party;
+        this.party = new Party(candidate.party);
         this.votes = candidate.votes;
     }
 
@@ -46,9 +46,9 @@ public class Candidate
     /**
      * @return Candidate's party
      */
-    public String getParty()
+    public Party getParty()
     {
-        return party;
+        return new Party(party);
     }
 
     /**
@@ -67,6 +67,7 @@ public class Candidate
     {
         String ret = "";
         ret += name;
+        ret += "(" + party.getName() + ", " + votes + " votos)";
         return ret;
     }
 }

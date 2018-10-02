@@ -11,7 +11,7 @@ import java.util.*;
 public class Coalition
 {
     // Coalition's parties set:
-    private Set<String> parties = new HashSet<String>();
+    private Set<Party> parties = new HashSet<Party>();
     // Coalition's cadidates set:
     private Set<Candidate> candidates = new HashSet<Candidate>();
     // Coalition's number of votes:
@@ -25,7 +25,7 @@ public class Coalition
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      */
-    public void addCandidate(Integer id, String name, String party, int votes)
+    public void addCandidate(Integer id, String name, Party party, int votes)
     {
         Candidate candidate = new Candidate(name, party, votes);
         candidates.put(id, candidate);
@@ -44,9 +44,14 @@ public class Coalition
     /**
      * @return Copy of the coalition's parties set
      */
-    public HashSet<String> getParties()
+    public HashSet<Party> getParties()
     {
-        return new HashSet<String>(parties);
+        HashSet<Party> p = new HashSet<Party>();
+        for (Party party : parties)
+        {
+            p.add(new Party(party));
+        }
+        return p;
     }
 
     /**
@@ -69,8 +74,7 @@ public class Coalition
     public String toString()
     {
         String ret = "Coligação: ";
-        Iterator it = candidates.entrySet().iterator(); // Iterator that will run through the candidates map
-        ret += "\n";
+        
         return ret;
     }
 }

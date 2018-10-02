@@ -24,6 +24,17 @@ public class Party
     }
 
     /**
+     * Party's constructor
+     * 
+     * @param party the party that will be copied
+     */
+    public Party(Party party)
+    {
+        this.name = party.name;
+        this.votes = party.votes;
+    }
+
+    /**
      * @return party's name
      */
     public String getName()
