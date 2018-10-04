@@ -69,4 +69,12 @@ public class Party
     {
         candidates.add(c);
     }
+
+    /**
+     * @return Copy of the candidates set
+     */
+    public HashSet<Candidate> getCandidates()
+    {
+        return new HashSet<Candidate>(candidates);
+    }
 }

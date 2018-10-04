@@ -68,6 +68,11 @@ public class Coalition
     {
         String ret = "Coligação: ";
         
+        for (Party party : parties)
+        {
+            ret += party.getName() + " / ";
+        }
+
         return ret;
     }
 }
