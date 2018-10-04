@@ -51,7 +51,17 @@ public class Party
     }
 
     /**
-     * Function that adds a candidate to the party
+     * Method that increments the amount of votes
+     * 
+     * @param voteIncrement 
+     */
+    public void addVotes(int voteIncrement)
+    {
+        votes += voteIncrement;
+    }
+
+    /**
+     * Method that adds a candidate to the party
      * 
      * @param c the candidate that will be added to the party
      */

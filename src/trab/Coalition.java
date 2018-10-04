@@ -12,25 +12,31 @@ public class Coalition
 {
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
-    // Coalition's cadidates set:
-    private Set<Candidate> candidates = new HashSet<Candidate>();
     // Coalition's number of votes:
     private int votes;
 
     /**
      * Method that adds a candidate to the coalition
      * 
-     * @param id Candidate's id
      * @param name Candidate's name
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      */
-    public void addCandidate(Integer id, String name, Party party, int votes)
+    public void addCandidate(String name, String party, int votes)
     {
-        Candidate candidate = new Candidate(name, party, votes);
-        candidates.put(id, candidate);
-        this.votes += votes;
-        parties.add(party);
+        for (Party p : parties) // Checking if the party already exists
+        {
+            if (p.getName() == party) // If it does...
+            {
+                // The new candidate will be added to that party
+                Candidate c = new Candidate(name, p, votes);
+                p.addCandidate(c);
+                return;
+            }
+        }
+        // Otherwise, a new party is created:
+        Party p = new Party(party, votes);
+        parties.add(p); // and it's added to the coalition
     }
 
     /**
@@ -52,19 +58,6 @@ public class Coalition
             p.add(new Party(party));
         }
         return p;
-    }
-
-    /**
-     * @return Copy of the candidates set
-     */
-    public HashSet<Candidate> getCandidates()
-    {
-        HashSet<Candidate> c = new HashSet<Candidate>();
-        for (Candidate candidate : candidates)
-        {
-            c.add(new Candidate(candidate));    
-        }
-        return c; // Returning the created set
     }
 
     /**
