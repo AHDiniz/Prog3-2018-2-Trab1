@@ -9,7 +9,7 @@ public class Party
 {
     private String name; // The party's name
     private int votes; // The party's amount of votes
-    private Set<Candidate> candidates = new HashSet<Candidate>(); // The candidate's that belong to the party
+    private Set<Candidate> candidates = new TreeSet<Candidate>(); // The candidate's that belong to the party
 
     /**
      * Party's constructor
@@ -73,8 +73,8 @@ public class Party
     /**
      * @return Copy of the candidates set
      */
-    public HashSet<Candidate> getCandidates()
+    public TreeSet<Candidate> getCandidates()
     {
-        return new HashSet<Candidate>(candidates);
+        return new TreeSet<Candidate>(candidates);
     }
 }
