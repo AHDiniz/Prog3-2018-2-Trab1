@@ -20,7 +20,7 @@ public class Reader {
             while(file.hasNextLine()) {
                 data = new Scanner(file.nextLine());
                 while(data.hasNext()) {
-                    String aux = data.next()
+                    String aux = data.next();
                     System.out.println(aux);
                 }
                 
