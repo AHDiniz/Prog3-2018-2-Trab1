@@ -70,7 +70,7 @@ public class Reader
 
                 temp.addCandidate(name, party, votes, percent); // Adding the line's candidate to the coalition
 
-                //System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent);
+                System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent);
                 
             }
             //System.out.println("Vagas = "+vacancies);

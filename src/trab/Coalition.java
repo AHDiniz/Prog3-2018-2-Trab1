@@ -35,6 +35,8 @@ public class Coalition
         }
         // Otherwise, a new party is created:
         Party p = new Party(party, votes);
+        Candidate c = new Candidate(name, p, votes, percent); // Creating a new candidate
+        p.addCandidate(c); // Adding the new candidate to the party
         parties.add(p); // and it's added to the coalition
     }
 

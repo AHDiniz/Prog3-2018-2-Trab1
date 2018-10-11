@@ -12,7 +12,7 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac destdir="${bin}">
+        <javac destdir="${bin}" includeantruntime="false">
             <src path="${src}"/>
         </javac>
     </target>
@@ -23,7 +23,7 @@
 
     <target name="run" description="Executa o programa principal.">
         <java classname="${mainClass}">
-            <arg value="saopaulo.csv"/>
+            <arg value="vix-in.csv"/>
             <arg value="UTF-8"/>
             <classpath>
                 <pathelement path="${bin}"/>
@@ -33,7 +33,7 @@
 
     <target name="run_win" description="Executa o programa com os argumentos para Windows.">
         <java classname="${mainClass}">
-            <arg value="saopaulo.csv"/>
+            <arg value="vix-in.csv"/>
             <arg value="ISO8859_1"/>
             <classpath>
                 <pathelement path="${bin}"/>

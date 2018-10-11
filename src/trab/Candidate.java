@@ -3,7 +3,7 @@ package trab;
 /**
  * Class that represents a political candidate
  */
-public class Candidate
+public class Candidate implements Comparable
 {
     private String name; // Candidate's name
     private Party party; // Candidate's party
@@ -80,5 +80,29 @@ public class Candidate
         ret += name;
         ret += "(" + party.getName() + ", " + votes + " votos)";
         return ret;
+    }
+
+    /**
+     * Method that compares a candidate to an object
+     * 
+     * @param o object that will be compared
+     * ! The object must be a Candidate too
+     * 
+     * @return an integer that tells if this object is less then, equal to or bigger then the input
+     */
+    @Override
+    public int compareTo(Object o)
+    {
+        if (this.votes < ((Candidate)o).getVotes())
+            return -1;
+        else if (this.votes == ((Candidate)o).getVotes())
+        {
+            if (this.name.compareTo(((Candidate)o).getName()) == 0)
+                return 0;
+            else if (this.name.compareTo(((Candidate)o).getName()) == 1)
+                return -1;
+            else return 1;
+        }
+        else return 1;
     }
 }
