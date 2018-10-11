@@ -34,7 +34,7 @@
     <target name="run_win" description="Executa o programa com os argumentos para Windows.">
         <java classname="${mainClass}">
             <arg value="saopaulo.csv"/>
-            <arg value="ISO8859_1">
+            <arg value="ISO8859_1"/>
             <classpath>
                 <pathelement path="${bin}"/>
             </classpath>
