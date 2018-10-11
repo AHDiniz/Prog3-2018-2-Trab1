@@ -5,12 +5,13 @@ import java.util.*;
 
 public class Reader
 {
-    public static Set<Coalition> readFile(String filePath, String encoding)
+    public static Map<String,Coalition> readFile(String filePath, String encoding)
     {
-        Set<Coalition> coalitions = new HashSet<Coalition>();
+        Map<String,Coalition> coalitions = new HashMap<String,Coalition>();
         int vacancies=0;
-        String aux, name, coalition, party;
-        int votes=0, percent=0;
+        String aux, name, coalition, party, percent;
+        int votes=0;
+        Coalition temp;
 
         Locale brLocale = Locale.forLanguageTag("pt-Br");
 
@@ -21,20 +22,21 @@ public class Reader
         	file.useLocale(brLocale);
         	file.nextLine();
         	
-            //while(file.hasNextLine())
-            //{
+            while(file.hasNextLine())
+            {
                 data = new Scanner(file.nextLine());
+                data.useLocale(brLocale);
                 data.useDelimiter(";");
 
                 aux = data.next();
+                if(aux.startsWith("#"))
+                    {
+                        break;
+                    }
                 if(aux.startsWith("*"))
                 {
                     vacancies++;
                 }
-                // if(aux.startsWith("#"))
-                // {
-                //     break;
-                // }
 
                 data.next();
                 name = data.next();
@@ -53,12 +55,21 @@ public class Reader
                 parties.close();
 
                 votes = data.nextInt();
-                //percent = data.nextInt(4);
+                percent = data.next();
 
-                System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent);
+                temp = coalitions.get(coalition);
+                if(temp == null)
+                {
+                    temp = new Coalition();
+                    coalitions.put(coalition, temp);
+                }
+
+                temp.addCandidate(name, party, votes, percent);
+
+                //System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent);
                 
-            //}
-            System.out.println("Vagas = "+vacancies);
+            }
+            //System.out.println("Vagas = "+vacancies);
         }
         catch(IOException ex)
         {

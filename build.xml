@@ -23,7 +23,7 @@
 
     <target name="run" description="Executa o programa principal.">
         <java classname="${mainClass}">
-            <arg value="divulga.csv"/>
+            <arg value="saopaulo.csv"/>
             <arg value="UTF-8"/>
             <classpath>
                 <pathelement path="${bin}"/>

@@ -8,7 +8,7 @@ public class Candidate
     private String name; // Candidate's name
     private Party party; // Candidate's party
     private int votes; // Candidate's amount of votes
-    private int percent; // Candidate's percentage of valid votes
+    private String percent; // Candidate's percentage of valid votes
 
     /**
      * Candidate's constructor
@@ -16,9 +16,9 @@ public class Candidate
      * @param name Candidate's name
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
-     * @param percent
+     * @param percent Candidate's percentage of valid votes
      */
-    public Candidate(String name, Party party, int votes, int percent)
+    public Candidate(String name, Party party, int votes, String percent)
     {
         this.name = name;
         this.party = new Party(party);
@@ -65,7 +65,7 @@ public class Candidate
     /**
      * @return Candidate's percent
      */
-    public int getPercent()
+    public String getPercent()
     {
         return percent;
     }
