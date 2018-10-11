@@ -6,7 +6,6 @@ import java.util.*;
  * Class that represents a political coalition
  * 
  * ! This class abstract the use of the Candidate class
- * ? Maybe stop using the Candidate as a public class?
  */
 public class Coalition
 {
