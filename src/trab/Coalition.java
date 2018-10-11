@@ -10,10 +10,22 @@ import java.util.*;
  */
 public class Coalition
 {
+    // Coalition's identificator:
+    private String name;
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
     private int votes;
+
+    /**
+     * Coalition Builder
+     * 
+     * @param name Coalition's name
+     */
+    public Coalition(String name)
+    {
+        this.name = name;
+    }
 
     /**
      * Method that adds a candidate to the coalition
@@ -37,6 +49,14 @@ public class Coalition
         // Otherwise, a new party is created:
         Party p = new Party(party, votes);
         parties.add(p); // and it's added to the coalition
+    }
+    
+    /**
+     * @return Coalition's name
+     */
+    public String getName()
+    {
+        return name;
     }
 
     /**

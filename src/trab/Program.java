@@ -1,7 +1,7 @@
 package trab;
 
-import java.util.*;
-import java.io.*;
+//import java.util.*;
+//import java.io.*;
 
 /**
  * Program's entry point:
@@ -12,6 +12,7 @@ public class Program
 {
     public static void main(String[] args)
     {
-        
+        //Set<Coalition> Coalition = 
+    	Reader.readFile(args[0],args[1]);
     }
 }
