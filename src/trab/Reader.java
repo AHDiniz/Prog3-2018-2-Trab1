@@ -14,7 +14,7 @@ public class Reader
     public static Map<String,Coalition> readFile(String filePath, String encoding)
     {
         Map<String,Coalition> coalitions = new HashMap<String,Coalition>(); // Map with all coalitions
-        int vacancies=0; // Total number of elected candidates
+        int vacancies = 0; // Total number of elected candidates
         String aux, name, coalition, party, percent; // Auxiliar variables
         int votes = 0; // Vote counter
         Coalition temp; // Auxiliar coalition variable
