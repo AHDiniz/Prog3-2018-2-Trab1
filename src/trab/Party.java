@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class Party
 {
+    private String coalition;
     private String name; // The party's name
     private int votes=0; // The party's amount of votes
     private Set<Candidate> candidates = new TreeSet<Candidate>(); // The candidate's that belong to the party
@@ -17,9 +18,10 @@ public class Party
      * @param name the party's name
      * @param votes the party's amount of votes
      */
-    public Party(String name)
+    public Party(String name, String coalition)
     {
         this.name = name;
+        this.coalition = coalition;
     }
 
     /**
@@ -31,6 +33,14 @@ public class Party
     {
         this.name = party.name;
         this.votes = party.votes;
+    }
+
+    /**
+     * @return party's coalition
+     */
+    public String getCoalition()
+    {
+        return coalition;
     }
 
     /**

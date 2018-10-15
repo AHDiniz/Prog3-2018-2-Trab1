@@ -1,5 +1,6 @@
 package trab;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -8,6 +9,8 @@ import java.util.*;
 public class Election
 {
     private Map<String, Coalition> coalitions;
+    private List<Candidate> mostVotedCandidates = new ArrayList<Candidate>();
+    private int vacancies;
 
     /**
      * Election object's constructor method:
@@ -16,9 +19,19 @@ public class Election
      * 
      * @return a new instance of Election
      */
-    public Election(Map<String, Coalition> coalitions)
+    public Election(Map<String, Coalition> coalitions, int vacancies)
     {
         this.coalitions = coalitions;
+        this.vacancies = vacancies;
+
+        for (Coalition coalition : this.coalitions.values()) {
+            for (Party party : coalition.getParties()) {
+                for (Candidate c : party.getCandidates()) {
+                    mostVotedCandidates.add(c);
+                }
+            }
+        }
+        Collections.sort(mostVotedCandidates, Collections.reverseOrder());
     }
 
     /**
@@ -28,7 +41,7 @@ public class Election
      */
     public String numberOfVacancies()
     {
-        return null;
+        return "Número de vagas: "+vacancies;
     }
 
     /**
@@ -38,7 +51,23 @@ public class Election
      */
     public String electedCandidates()
     {
-        return null;
+        String elected = "Vereadores eleitos:\n";
+        int i=1;
+
+        System.out.println("Vacancies = "+vacancies);
+
+        for (Candidate c : mostVotedCandidates) {
+            if(c.getElected())
+            {
+                elected += i+" - "+c+"\n";
+                i++;
+                if(i > vacancies)
+                {
+                    break;
+                }
+            }
+        }
+        return elected;
     }
 
     /**

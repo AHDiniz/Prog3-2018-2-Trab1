@@ -1,6 +1,7 @@
 package trab;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Reader
@@ -11,12 +12,13 @@ public class Reader
      * @param filePath the location of the file that will be read
      * @param encoding the encoding used to write the file
      */
-    public static Map<String,Coalition> readFile(String filePath, String encoding)
+    public static Election readFile(String filePath, String encoding)
     {
         Map<String,Coalition> coalitions = new HashMap<String,Coalition>(); // Map with all coalitions
         boolean elected; // tell if the candidate was elected
         String aux, name, coalition, party, percent; // Auxiliar variables
         int votes = 0; // Vote counter
+        int vacancies = 0;
         Coalition temp; // Auxiliar coalition variable
 
         Locale brLocale = Locale.forLanguageTag("pt-Br"); // Seting the locale for Brazilian Portuguese
@@ -39,6 +41,7 @@ public class Reader
                 }
                 if(aux.startsWith("*")) // Incrementing the number of vacancies if an elected candidate is found
                 {
+                    vacancies++;
                     elected = true;
                 } else
                 {
@@ -51,13 +54,13 @@ public class Reader
                 Scanner parties = new Scanner(line.next()); // Setting an auxiliar scanner for the parties and coalitions
                 parties.useDelimiter("-"); // Setting delimiter as '-'
                 party = (parties.next()).trim(); // Getting the candidate's party
-                if(parties.hasNext()) // If it has a coligation
+                if(parties.hasNext()) // If it has a coalition
                 {
-                    coalition = (parties.next()).trim(); // Getting the coligation
+                    coalition = (parties.next()).trim(); // Getting the coalition
                 }
-                else // Otherwise...
+                else // Otherwise, it will be only the party's name
                 {
-                    coalition = party; // The coalition that will be created (if it doesn't exist) will have only one party
+                    coalition = party;
                 }
                 parties.close(); // Closing the auxiliar scanner
 
@@ -70,6 +73,10 @@ public class Reader
                 if(temp == null) // If there are no coalition...
                 {
                     temp = new Coalition(); // Creating a new coalition
+                    if(!(coalition.equals(party)))
+                    {
+                        temp.setName(coalition);
+                    }
                     coalitions.put(coalition, temp); // And add it to the Map
                 }
 
@@ -88,6 +95,6 @@ public class Reader
         }
         
 
-        return coalitions;
+        return new Election(coalitions, vacancies);
     }
 }

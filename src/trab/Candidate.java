@@ -88,8 +88,13 @@ public class Candidate implements Comparable<Candidate>
     public String toString()
     {
         String ret = "";
-        ret += name;
-        ret += "(" + party.getName() + ", " + votes + " votos)";
+        ret += name+" (" + party.getName() + ", " + votes + " votos)";
+
+        String temp = party.getCoalition();
+        if(temp != null)
+        {
+            ret += " - Coligação: "+temp;
+        }
         return ret;
     }
 

@@ -9,6 +9,8 @@ import java.util.*;
  */
 public class Coalition
 {
+    // Coalition's name
+    private String name;
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
@@ -36,10 +38,18 @@ public class Coalition
             }
         }
         // Otherwise, a new party is created:
-        Party p = new Party(party);
+        Party p = new Party(party, name);
         Candidate c = new Candidate(name, p, votes, percent, elected); // Creating a new candidate
         p.addCandidate(c); // Adding the new candidate to the party
         parties.add(p); // and it's added to the coalition
+    }
+
+    /**
+     * @param name Coalition's name
+     */
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     /**
