@@ -3,11 +3,11 @@ package trab;
 import java.util.*;
 
 /**
- * Class reponsible to make the calculations of the elections nd print on the screen
+ * Class reponsible to make the calculations of the elections and print on the screen
  */
 public class Election
 {
-    private Map<String, Coalition> coalitions = new Map<String, Coalition>();
+    private Map<String, Coalition> coalitions;
 
     /**
      * Election object's constructor method:
@@ -22,11 +22,31 @@ public class Election
     }
 
     /**
+     * Method that tells the number of elected candidates
+     * 
+     * @return a String with the number of elected candidates
+     */
+    public String numberOfVacancies()
+    {
+        return null;
+    }
+
+    /**
      * Method that tells who was elected
      * 
      * @return a String with data about the elected candidates
      */
     public String electedCandidates()
+    {
+        return null;
+    }
+
+    /**
+     * Method that tells the most voted candidates
+     * 
+     * @return a String with data about the most voted candidates
+     */
+    public String mostVoted()
     {
         return null;
     }

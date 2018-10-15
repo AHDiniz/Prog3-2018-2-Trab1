@@ -3,12 +3,13 @@ package trab;
 /**
  * Class that represents a political candidate
  */
-public class Candidate implements Comparable
+public class Candidate implements Comparable<Candidate>
 {
     private String name; // Candidate's name
     private Party party; // Candidate's party
     private int votes; // Candidate's amount of votes
     private String percent; // Candidate's percentage of valid votes
+    private boolean elected; // boolean that is true if the candidate was elected
 
     /**
      * Candidate's constructor
@@ -17,13 +18,15 @@ public class Candidate implements Comparable
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      * @param percent Candidate's percentage of valid votes
+     * @param elected true if candidate was elected, otherwise false 
      */
-    public Candidate(String name, Party party, int votes, String percent)
+    public Candidate(String name, Party party, int votes, String percent,boolean elected)
     {
         this.name = name;
         this.party = new Party(party);
         this.votes = votes;
         this.percent = percent;
+        this.elected = elected;
     }
 
     /**
@@ -63,11 +66,19 @@ public class Candidate implements Comparable
     }
 
     /**
-     * @return Candidate's percent
+     * @return Candidate's percentage of valid votes
      */
     public String getPercent()
     {
         return percent;
+    }
+
+    /**
+     * @return true if the candidate was elected, otherwise return false
+     */
+    public boolean getElected()
+    {
+        return elected;
     }
 
     /**
@@ -83,23 +94,23 @@ public class Candidate implements Comparable
     }
 
     /**
-     * Method that compares a candidate to an object
+     * Method that compares two candidates
      * 
-     * @param o object that will be compared
+     * @param c candidate that will be compared
      * ! The object must be a Candidate too
      * 
-     * @return an integer that tells if this object is less then, equal to or bigger then the input
+     * @return an integer that tells if this candidate is less then, equal to or bigger then the input
      */
     @Override
-    public int compareTo(Object o)
+    public int compareTo(Candidate c)
     {
-        if (this.votes < ((Candidate)o).getVotes())
+        if (this.votes < c.getVotes())
             return -1;
-        else if (this.votes == ((Candidate)o).getVotes())
+        else if (this.votes == c.getVotes())
         {
-            if (this.name.compareTo(((Candidate)o).getName()) == 0)
+            if (this.name.compareTo(c.getName()) == 0)
                 return 0;
-            else if (this.name.compareTo(((Candidate)o).getName()) == 1)
+            else if (this.name.compareTo(c.getName()) > 0)
                 return -1;
             else return 1;
         }

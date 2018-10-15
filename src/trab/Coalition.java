@@ -12,7 +12,7 @@ public class Coalition
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
-    private int votes;
+    private int votes=0;
 
     /**
      * Method that adds a candidate to the coalition
@@ -21,21 +21,23 @@ public class Coalition
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      */
-    public void addCandidate(String name, String party, int votes, String percent)
+    public void addCandidate(String name, String party, int votes, String percent, boolean elected)
     {
+        this.votes += votes; // Updating coalition's amount of votes
+
         for (Party p : parties) // Checking if the party already exists
         {
-            if (p.getName() == party) // If it does...
+            if (party.equals(p.getName())) // If it does...
             {
                 // The new candidate will be added to that party
-                Candidate c = new Candidate(name, p, votes, percent);
+                Candidate c = new Candidate(name, p, votes, percent, elected);
                 p.addCandidate(c);
                 return;
             }
         }
         // Otherwise, a new party is created:
-        Party p = new Party(party, votes);
-        Candidate c = new Candidate(name, p, votes, percent); // Creating a new candidate
+        Party p = new Party(party);
+        Candidate c = new Candidate(name, p, votes, percent, elected); // Creating a new candidate
         p.addCandidate(c); // Adding the new candidate to the party
         parties.add(p); // and it's added to the coalition
     }
@@ -73,6 +75,8 @@ public class Coalition
         {
             ret += party.getName() + " / ";
         }
+
+        ret += "\nVotes = "+votes;
 
         return ret;
     }

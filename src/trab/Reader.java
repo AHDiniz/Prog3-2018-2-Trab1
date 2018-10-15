@@ -14,7 +14,7 @@ public class Reader
     public static Map<String,Coalition> readFile(String filePath, String encoding)
     {
         Map<String,Coalition> coalitions = new HashMap<String,Coalition>(); // Map with all coalitions
-        int vacancies = 0; // Total number of elected candidates
+        boolean elected; // tell if the candidate was elected
         String aux, name, coalition, party, percent; // Auxiliar variables
         int votes = 0; // Vote counter
         Coalition temp; // Auxiliar coalition variable
@@ -39,7 +39,10 @@ public class Reader
                 }
                 if(aux.startsWith("*")) // Incrementing the number of vacancies if an elected candidate is found
                 {
-                    vacancies++;
+                    elected = true;
+                } else
+                {
+                    elected = false;
                 }
 
                 line.next(); // Jumping the candidate's number
@@ -61,6 +64,8 @@ public class Reader
                 votes = line.nextInt(); // Getting the candidate's votes
                 percent = line.next(); // Getting the candidate's percent of votes
 
+                line.close();
+
                 temp = coalitions.get(coalition); // Serching the candidate's coalition
                 if(temp == null) // If there are no coalition...
                 {
@@ -68,9 +73,9 @@ public class Reader
                     coalitions.put(coalition, temp); // And add it to the Map
                 }
 
-                temp.addCandidate(name, party, votes, percent); // Adding the line's candidate to the coalition
+                temp.addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition
 
-                System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent);
+                //System.out.println("\nName = "+name+"\nParty = ["+party+"]\nCoalition = ["+coalition+"]\nVotes = "+votes+"\nPercent = "+percent+"\nElected = "+elected);
                 
             }
             //System.out.println("Vagas = "+vacancies);

@@ -8,7 +8,7 @@ import java.util.*;
 public class Party
 {
     private String name; // The party's name
-    private int votes; // The party's amount of votes
+    private int votes=0; // The party's amount of votes
     private Set<Candidate> candidates = new TreeSet<Candidate>(); // The candidate's that belong to the party
 
     /**
@@ -17,10 +17,9 @@ public class Party
      * @param name the party's name
      * @param votes the party's amount of votes
      */
-    public Party(String name, int votes)
+    public Party(String name)
     {
         this.name = name;
-        this.votes = votes;
     }
 
     /**
@@ -51,22 +50,13 @@ public class Party
     }
 
     /**
-     * Method that increments the amount of votes
-     * 
-     * @param voteIncrement 
-     */
-    public void addVotes(int voteIncrement)
-    {
-        votes += voteIncrement;
-    }
-
-    /**
      * Method that adds a candidate to the party
      * 
      * @param c the candidate that will be added to the party
      */
     public void addCandidate(Candidate c)
     {
+        this.votes += c.getVotes(); // Updating the party's amount of votes
         candidates.add(c);
     }
 
