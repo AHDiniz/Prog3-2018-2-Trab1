@@ -9,7 +9,7 @@ public class Party
 {
     private String coalition;
     private String name; // The party's name
-    private int votes=0; // The party's amount of votes
+    private int votes = 0; // The party's amount of votes
     private Set<Candidate> candidates = new TreeSet<Candidate>(); // The candidate's that belong to the party
 
     /**

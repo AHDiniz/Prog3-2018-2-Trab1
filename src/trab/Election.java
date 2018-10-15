@@ -8,9 +8,11 @@ import java.util.*;
  */
 public class Election
 {
-    private Map<String, Coalition> coalitions;
-    private List<Candidate> mostVotedCandidates = new ArrayList<Candidate>();
-    private int vacancies;
+    private Map<String, Coalition> coalitions; // The map relating the coalitions name with the coalition
+    private List<Candidate> mostVoted = new ArrayList<Candidate>(); // This array will contain the most voted candidates
+    private List<Candidate> elected = new ArrayList<Candidate>(); // This list has the elected candidates
+    private int vacancies; // The total amount of vacancies in the election
+    private int totalVotes; // The total amount of votes in the election
 
     /**
      * Election object's constructor method:
@@ -23,15 +25,11 @@ public class Election
     {
         this.coalitions = coalitions;
         this.vacancies = vacancies;
-
-        for (Coalition coalition : this.coalitions.values()) {
-            for (Party party : coalition.getParties()) {
-                for (Candidate c : party.getCandidates()) {
-                    mostVotedCandidates.add(c);
-                }
-            }
+        // Getting the total amount of votes in the election:
+        for (Coalition coalition : coalitions.values())
+        {
+            totalVotes += coalition.getVotes();    
         }
-        Collections.sort(mostVotedCandidates, Collections.reverseOrder());
     }
 
     /**
@@ -41,7 +39,7 @@ public class Election
      */
     public String numberOfVacancies()
     {
-        return "Número de vagas: "+vacancies;
+        return "Número de vagas: " + vacancies;
     }
 
     /**
@@ -51,22 +49,17 @@ public class Election
      */
     public String electedCandidates()
     {
-        String elected = "Vereadores eleitos:\n";
-        int i=1;
+        String elected = "Vereadores eleitos:\n"; // Initializing the return string
 
-        System.out.println("Vacancies = "+vacancies);
-
-        for (Candidate c : mostVotedCandidates) {
-            if(c.getElected())
+        // Getting the elected candidates of each party and putting their info in the return string:
+        for (Coalition coalition : coalitions.values())
+        {
+            for (Party party : coalition.getParties())
             {
-                elected += i+" - "+c+"\n";
-                i++;
-                if(i > vacancies)
-                {
-                    break;
-                }
+                float proportion = (float)party.getVotes() / (float)totalVotes;
             }
         }
+
         return elected;
     }
 
@@ -75,9 +68,37 @@ public class Election
      * 
      * @return a String with data about the most voted candidates
      */
-    public String mostVoted()
+    public String mostVotedCandidates()
     {
-        return null;
+        // Looking for every candidate in the election:
+        for (Coalition coalition : coalitions.values())
+        {
+            for (Party party : coalition.getParties())
+            {
+                for (Candidate candidate : party.getCandidates())
+                {
+                    this.mostVoted.add(candidate);
+                }
+            }
+        }
+
+        // Ordering the candidate list:
+        Collections.sort(this.mostVoted, new Candidate.CandidateComparator());
+
+        // Getting info about the most voted cadidates and putting it in a String:
+        String ret = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):\n";
+        for (int i = 0; i < vacancies; i++)
+        {
+            Candidate c = this.mostVoted.get(i); // Getting the candidate
+            int p = i + 1;
+            ret += p + " - " + c + "\n";
+        }
+        
+        // Removing the candidates that were not the most voted:
+        while (this.mostVoted.size() > vacancies)
+            this.mostVoted.remove(vacancies);
+
+        return ret;
     }
 
     /**
@@ -125,7 +146,7 @@ public class Election
      * 
      * @return the total quantity of votes
      */
-    public int amountVotes()
+    public int amountOfVotes()
     {
         int votes = 0;
 

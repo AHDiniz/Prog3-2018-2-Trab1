@@ -11,7 +11,7 @@ public class Program
     {
         Election election = Reader.readFile(args[0], args[1]);
         
-        System.out.println(election.numberOfVacancies()+"\n");
-        System.out.println(election.electedCandidates()+"\n");
+        System.out.println(election.numberOfVacancies() + "\n");
+        System.out.println(election.electedCandidates() + "\n");
     }
 }

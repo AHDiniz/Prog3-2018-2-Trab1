@@ -1,10 +1,35 @@
 package trab;
 
+import java.util.Comparator;
+
 /**
  * Class that represents a political candidate
  */
 public class Candidate implements Comparable<Candidate>
 {
+    /**
+     * Creating a candidate comparator class that "belongs" to the Candidate
+     * This class will contain the method to compare two given candidates
+     */
+    public static class CandidateComparator implements Comparator<Candidate>
+    {
+        /**
+         * Method that compares two candidates
+         * 
+         * @param a the first candidate in the comparision
+         * @param b the second candidate in the comparision
+         * 
+         * @return the difference between the inputs' positions
+         */
+        @Override
+        public int compare(Candidate a, Candidate b)
+        {
+            int diff = a.getVotes() - b.getVotes();
+            if (diff != 0) return -diff;
+            else return a.getName().compareTo(b.getName());
+        }
+    }
+
     private String name; // Candidate's name
     private Party party; // Candidate's party
     private int votes; // Candidate's amount of votes
@@ -20,7 +45,7 @@ public class Candidate implements Comparable<Candidate>
      * @param percent Candidate's percentage of valid votes
      * @param elected true if candidate was elected, otherwise false 
      */
-    public Candidate(String name, Party party, int votes, String percent,boolean elected)
+    public Candidate(String name, Party party, int votes, String percent, boolean elected)
     {
         this.name = name;
         this.party = new Party(party);
@@ -99,26 +124,15 @@ public class Candidate implements Comparable<Candidate>
     }
 
     /**
-     * Method that compares two candidates
-     * 
-     * @param c candidate that will be compared
-     * ! The object must be a Candidate too
-     * 
-     * @return an integer that tells if this candidate is less then, equal to or bigger then the input
+     * Method that compares this instance of candidate with another one
      */
     @Override
     public int compareTo(Candidate c)
     {
-        if (this.votes < c.getVotes())
-            return -1;
-        else if (this.votes == c.getVotes())
-        {
-            if (this.name.compareTo(c.getName()) == 0)
-                return 0;
-            else if (this.name.compareTo(c.getName()) > 0)
-                return -1;
-            else return 1;
-        }
-        else return 1;
+        int diff = this.getVotes() - c.getVotes();
+        if (diff != 0)
+            return -diff;
+        else
+            return this.getName().compareTo(c.getName());
     }
 }

@@ -14,7 +14,7 @@ public class Coalition
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
-    private int votes=0;
+    private int votes = 0;
 
     /**
      * Method that adds a candidate to the coalition
@@ -53,6 +53,14 @@ public class Coalition
     }
 
     /**
+     * @return the coalition's name
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+    /**
      * @return Coalition's amount of votes
      */
     public int getVotes()
@@ -86,7 +94,7 @@ public class Coalition
             ret += party.getName() + " / ";
         }
 
-        ret += "\nVotes = "+votes;
+        ret += "\nVotes = " + votes;
 
         return ret;
     }
