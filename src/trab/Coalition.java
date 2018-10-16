@@ -10,7 +10,7 @@ import java.util.*;
 public class Coalition
 {
     // Coalition's name
-    private String name;
+    private String name=null;
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
@@ -21,7 +21,10 @@ public class Coalition
      * 
      * @param name Candidate's name
      * @param party Candidate's party
+     * @param coalition Name of the party's coalition
      * @param votes Candidate's amount of votes
+     * @param percent Candidate's percent of valid of votes
+     * @param elected true if candidate was elected, otherwise false
      */
     public void addCandidate(String name, String party, int votes, String percent, boolean elected)
     {
@@ -38,7 +41,7 @@ public class Coalition
             }
         }
         // Otherwise, a new party is created:
-        Party p = new Party(party, name);
+        Party p = new Party(party, this.name);
         Candidate c = new Candidate(name, p, votes, percent, elected); // Creating a new candidate
         p.addCandidate(c); // Adding the new candidate to the party
         parties.add(p); // and it's added to the coalition
@@ -71,14 +74,9 @@ public class Coalition
     /**
      * @return Copy of the coalition's parties set
      */
-    public HashSet<Party> getParties()
+    public Set<Party> getParties()
     {
-        HashSet<Party> p = new HashSet<Party>();
-        for (Party party : parties)
-        {
-            p.add(new Party(party));
-        }
-        return p;
+        return new HashSet<Party>(parties);
     }
 
     /**

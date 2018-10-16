@@ -1,7 +1,6 @@
 package trab;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Reader
@@ -55,7 +54,7 @@ public class Reader
                 {
                     coalition = (parties.next()).trim(); // Getting the coalition
                 }
-                else // Otherwise, it will be only the party's name
+                else // Otherwise, it will be saved as the party's name
                 {
                     coalition = party;
                 }
@@ -67,10 +66,10 @@ public class Reader
                 line.close();
 
                 temp = coalitions.get(coalition); // Serching the candidate's coalition
-                if (temp == null) // If there are no coalition...
+                if (temp == null) // If the coalition don't exists...
                 {
                     temp = new Coalition(); // Creating a new coalition
-                    if (!(coalition.equals(party)))
+                    if (!(coalition.equals(party))) // Set the coalition's name if there are more than one party
                     {
                         temp.setName(coalition);
                     }

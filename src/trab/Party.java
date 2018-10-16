@@ -10,13 +10,13 @@ public class Party
     private String coalition;
     private String name; // The party's name
     private int votes = 0; // The party's amount of votes
-    private Set<Candidate> candidates = new TreeSet<Candidate>(); // The candidate's that belong to the party
+    private Set<Candidate> candidates = new HashSet<Candidate>(); // The candidates that belong to the party
 
     /**
      * Party's constructor
      * 
      * @param name the party's name
-     * @param votes the party's amount of votes
+     * @param coalition the name of the party's coalition
      */
     public Party(String name, String coalition)
     {
@@ -33,6 +33,7 @@ public class Party
     {
         this.name = party.name;
         this.votes = party.votes;
+        this.coalition = party.coalition;
     }
 
     /**
@@ -73,8 +74,8 @@ public class Party
     /**
      * @return Copy of the candidates set
      */
-    public TreeSet<Candidate> getCandidates()
+    public Set<Candidate> getCandidates()
     {
-        return new TreeSet<Candidate>(candidates);
+        return new HashSet<Candidate>(candidates);
     }
 }

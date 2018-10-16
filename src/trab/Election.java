@@ -1,9 +1,7 @@
 package trab;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-import jdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
 
 /**
  * Class reponsible to make the calculations of the elections and print on the screen
@@ -28,10 +26,13 @@ public class Election
 
         for (Coalition coalition : this.coalitions.values())
         {
+            //System.out.println("\nCoalition: "+coalition);
             for (Party party : coalition.getParties())
             {
+                //System.out.println("Party: "+party.getName());
                 for (Candidate c : party.getCandidates())
                 {
+                    //System.out.println("Name: "+c.getName());
                     mostVoted.add(c);
                 }
             }

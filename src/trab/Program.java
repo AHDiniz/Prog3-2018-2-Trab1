@@ -1,7 +1,5 @@
 package trab;
 
-import java.util.*;
-
 /**
  * Program's entry point:
  */
@@ -9,6 +7,8 @@ public class Program
 {
     public static void main(String[] args)
     {
+        //Locale.setDefault(new Locale(args[1]));
+
         Election election = Reader.readFile(args[0], args[1]);
         
         System.out.println(election.numberOfVacancies() + "\n");

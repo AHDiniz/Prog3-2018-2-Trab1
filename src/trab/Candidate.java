@@ -43,7 +43,7 @@ public class Candidate implements Comparable<Candidate>
      * @param party Candidate's party
      * @param votes Candidate's amount of votes
      * @param percent Candidate's percentage of valid votes
-     * @param elected true if candidate was elected, otherwise false 
+     * @param elected true if candidate was elected, otherwise false
      */
     public Candidate(String name, Party party, int votes, String percent, boolean elected)
     {
