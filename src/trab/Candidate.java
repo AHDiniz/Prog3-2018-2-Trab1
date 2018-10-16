@@ -11,7 +11,7 @@ public class Candidate implements Comparable<Candidate>
      * Creating a candidate comparator class that "belongs" to the Candidate
      * This class will contain the method to compare two given candidates
      */
-    public static class CandidateComparator implements Comparator<Candidate>
+    public static class CandidateComparator implements Comparator<Object>
     {
         /**
          * Method that compares two candidates
@@ -22,11 +22,11 @@ public class Candidate implements Comparable<Candidate>
          * @return the difference between the inputs' positions
          */
         @Override
-        public int compare(Candidate a, Candidate b)
+        public int compare(Object a, Object b)
         {
-            int diff = a.getVotes() - b.getVotes();
+            int diff = ((Candidate) a).getVotes() - ((Candidate) b).getVotes();
             if (diff != 0) return -diff;
-            else return a.getName().compareTo(b.getName());
+            else return ((Candidate) a).getName().compareTo(((Candidate) b).getName());
         }
     }
 
@@ -118,7 +118,7 @@ public class Candidate implements Comparable<Candidate>
         String temp = party.getCoalition();
         if(temp != null)
         {
-            ret += " - Coligação: "+temp;
+            ret += " - Coligação: " + temp;
         }
         return ret;
     }

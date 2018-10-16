@@ -14,21 +14,21 @@ public class Reader
      */
     public static Election readFile(String filePath, String encoding)
     {
-        Map<String,Coalition> coalitions = new HashMap<String,Coalition>(); // Map with all coalitions
-        boolean elected; // tell if the candidate was elected
+        Map<String, Coalition> coalitions = new HashMap<String, Coalition>(); // Map with all coalitions
+        boolean elected; // Tells if the candidate was elected
         String aux, name, coalition, party, percent; // Auxiliar variables
         int votes = 0; // Vote counter
         int vacancies = 0;
         Coalition temp; // Auxiliar coalition variable
 
-        Locale brLocale = Locale.forLanguageTag("pt-Br"); // Seting the locale for Brazilian Portuguese
+        Locale brLocale = Locale.forLanguageTag("pt-Br"); // Setting the locale for Brazilian Portuguese
 
-        try (Scanner file = new Scanner( new BufferedReader( new InputStreamReader(new FileInputStream(filePath), encoding)));)
+        try (Scanner file = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(filePath), encoding)));)
         {
-        	file.useLocale(brLocale); // Seting the file locale to Brazilian Portuguese
+        	file.useLocale(brLocale); // Setting the file locale to Brazilian Portuguese
         	file.nextLine(); // Skipping the header
         	
-            while(file.hasNextLine()) // Reading every line after the header in the file
+            while (file.hasNextLine()) // Reading every line after the header in the file
             {
                 Scanner line = new Scanner(file.nextLine()); // Seting a new scanner for each line
                 line.useLocale(brLocale); // Setting the locale in the line to Brazilian Portuguese
@@ -36,18 +36,14 @@ public class Reader
 
                 aux = line.next(); // Getting the identification number
                 if (aux.startsWith("#")) // Break the loop if the section of valid candidates end
-                {
                     break;
-                }
                 if (aux.startsWith("*")) // Incrementing the number of vacancies if an elected candidate is found
                 {
                     vacancies++;
                     elected = true;
                 }
                 else
-                {
                     elected = false;
-                }
 
                 line.next(); // Jumping the candidate's number
                 name = line.next(); // Getting the candidate's name
@@ -81,7 +77,7 @@ public class Reader
                     coalitions.put(coalition, temp); // And add it to the Map
                 }
 
-                temp.addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition                
+                temp.addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition
             }
         }
         catch (IOException ex)
@@ -90,7 +86,6 @@ public class Reader
             System.err.println("ERROR: the given filepath is invalid or there's a problem with the file itself.\n");
             ex.printStackTrace(); // Printing the exception stack trace
         }
-        
 
         return new Election(coalitions, vacancies);
     }

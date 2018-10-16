@@ -3,16 +3,16 @@ package trab;
 import java.lang.reflect.Array;
 import java.util.*;
 
+import jdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
+
 /**
  * Class reponsible to make the calculations of the elections and print on the screen
  */
 public class Election
 {
-    private Map<String, Coalition> coalitions; // The map relating the coalitions name with the coalition
-    private List<Candidate> mostVoted = new ArrayList<Candidate>(); // This array will contain the most voted candidates
-    private List<Candidate> elected = new ArrayList<Candidate>(); // This list has the elected candidates
-    private int vacancies; // The total amount of vacancies in the election
-    private int totalVotes; // The total amount of votes in the election
+    private Map<String, Coalition> coalitions;
+    private List<Candidate> mostVoted = new ArrayList<Candidate>();
+    private int vacancies;
 
     /**
      * Election object's constructor method:
@@ -25,11 +25,18 @@ public class Election
     {
         this.coalitions = coalitions;
         this.vacancies = vacancies;
-        // Getting the total amount of votes in the election:
-        for (Coalition coalition : coalitions.values())
+
+        for (Coalition coalition : this.coalitions.values())
         {
-            totalVotes += coalition.getVotes();    
+            for (Party party : coalition.getParties())
+            {
+                for (Candidate c : party.getCandidates())
+                {
+                    mostVoted.add(c);
+                }
+            }
         }
+        Collections.sort(mostVoted, new Candidate.CandidateComparator());
     }
 
     /**
@@ -49,18 +56,16 @@ public class Election
      */
     public String electedCandidates()
     {
-        String elected = "Vereadores eleitos:\n"; // Initializing the return string
-
-        // Getting the elected candidates of each party and putting their info in the return string:
-        for (Coalition coalition : coalitions.values())
+        String ret = "Vereadores eleitos:\n";
+        
+        for (int i = 0; i < vacancies; i++)
         {
-            for (Party party : coalition.getParties())
-            {
-                float proportion = (float)party.getVotes() / (float)totalVotes;
-            }
+            Candidate c = mostVoted.get(i);
+            int p = i + 1;
+            ret += p + " - " + c + "\n";
         }
 
-        return elected;
+        return ret;
     }
 
     /**
@@ -70,34 +75,16 @@ public class Election
      */
     public String mostVotedCandidates()
     {
-        // Looking for every candidate in the election:
-        for (Coalition coalition : coalitions.values())
-        {
-            for (Party party : coalition.getParties())
-            {
-                for (Candidate candidate : party.getCandidates())
-                {
-                    this.mostVoted.add(candidate);
-                }
-            }
-        }
-
-        // Ordering the candidate list:
-        Collections.sort(this.mostVoted, new Candidate.CandidateComparator());
-
-        // Getting info about the most voted cadidates and putting it in a String:
         String ret = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):\n";
-        for (int i = 0; i < vacancies; i++)
-        {
-            Candidate c = this.mostVoted.get(i); // Getting the candidate
-            int p = i + 1;
-            ret += p + " - " + c + "\n";
-        }
-        
-        // Removing the candidates that were not the most voted:
-        while (this.mostVoted.size() > vacancies)
-            this.mostVoted.remove(vacancies);
+        int i = 1;
 
+        for (Candidate c : mostVoted)
+        {
+            ret += i + " - " + c + "\n";
+            i++;
+            if (i > vacancies)
+                break;
+        }
         return ret;
     }
 
@@ -108,7 +95,20 @@ public class Election
      */
     public String electedByMajority()
     {
-        return null;
+        String ret = "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n";
+        ret += "(com sua posição no ranking de mais votados)\n";
+
+        for (int i = 0; i < vacancies; i++)
+        {
+            Candidate c = mostVoted.get(i);
+            if (!c.getElected())
+            {
+                int p = i + 1;
+                ret += p + " - " + c + "\n";
+            }
+        }
+        
+        return ret;
     }
 
     /**
@@ -118,7 +118,20 @@ public class Election
      */
     public String electedByProportion()
     {
-        return null;
+        String ret = "Eleitos, que se beneficiaram do sistema proporcional:\n";
+        ret += "(com sua posição no ranking de mais votados)\n";
+
+        for (int i = vacancies; i < mostVoted.size(); i++)
+        {
+            Candidate c = mostVoted.get(i);
+            if (c.getElected())
+            {
+                int p = i + 1;
+                ret += p + " - " + c + "\n";
+            }
+        }
+
+        return ret;
     }
 
     /**
@@ -128,7 +141,26 @@ public class Election
      */
     public String votesByCoalition()
     {
-        return null;
+        String ret = "Votação (nominal) das coligações e número de candidatos eleitos:\n";
+
+        ArrayList<Coalition> cList = new ArrayList<Coalition>(coalitions.values());
+
+        for (int i = 0; i < cList.size(); i++)
+        {
+            int p = i + 1;
+            ret += p + " - Coligação: ";
+            
+            Coalition c = cList.get(i);
+            ret += c.getName() + ", " + c.getVotes() + " votos, ";
+            
+            int e = 0; // Elected candidates counter
+            for (Party party : c.getParties())
+                for (Candidate candidate : party.getCandidates())
+                    if (candidate.getElected()) e++;
+            ret += e + " candidato(s) eleito(s)\n";
+        }
+
+        return ret;
     }
 
     /**
@@ -138,7 +170,22 @@ public class Election
      */
     public String votesByParty()
     {
-        return null;
+        String ret = "Votação (nominal) dos partidos e número de candidatos eleitos:\n";
+        
+        int amountOfParties = 1;
+        for (Coalition coalition : coalitions.values())
+        {
+            for (Party party : coalition.getParties())
+            {
+                ret += amountOfParties + " " + party.getName() + ", " + party.getVotes() + " votos, ";
+                int e = 0;
+                for (Candidate candidate : party.getCandidates())
+                    if (candidate.getElected()) e++;
+                ret += e + " candidato(s) eleito(s)\n";
+            }
+        }
+
+        return ret;
     }
 
     /**
