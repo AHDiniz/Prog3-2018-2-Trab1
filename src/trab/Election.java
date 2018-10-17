@@ -157,8 +157,8 @@ public class Election
             int e = 0; // Elected candidates counter
             for (Party party : c.getParties())
                 for (Candidate candidate : party.getCandidates())
-                    if (candidate.getElected()) e++;
-            ret += e + " candidato(s) eleito(s)\n";
+                    if (candidate.getElected()) e++; 
+            ret += (e >= 2) ? (e + " candidatos eleitos\n") : (e + " candidato eleito\n");
         }
 
         return ret;
@@ -182,7 +182,7 @@ public class Election
                 int e = 0;
                 for (Candidate candidate : party.getCandidates())
                     if (candidate.getElected()) e++;
-                ret += e + " candidato(s) eleito(s)\n";
+                ret += (e >= 2) ? (e + " candidatos eleitos\n") : (e + " candidato eleito\n");
             }
         }
 

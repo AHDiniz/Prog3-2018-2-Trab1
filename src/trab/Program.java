@@ -1,5 +1,8 @@
 package trab;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+
 /**
  * Program's entry point:
  */
@@ -7,17 +10,23 @@ public class Program
 {
     public static void main(String[] args)
     {
-        //Locale.setDefault(new Locale(args[1]));
+        try (PrintStream ps = new PrintStream(System.out, true, args[1]);)
+        {
+            Election election = Reader.readFile(args[0], args[1]);
 
-        Election election = Reader.readFile(args[0], args[1]);
-        
-        System.out.println(election.numberOfVacancies() + "\n");
-        System.out.println(election.electedCandidates() + "\n");
-        System.out.println(election.mostVotedCandidates() + "\n");
-        System.out.println(election.electedByMajority() + "\n");
-        System.out.println(election.electedByProportion() + "\n");
-        System.out.println(election.votesByCoalition() + "\n");
-        System.out.println(election.votesByParty() + "\n");
-        System.out.println("Total de votos nominais: " + election.amountOfVotes());
+            ps.println(election.numberOfVacancies() + "\n");
+            ps.println(election.electedCandidates() + "\n");
+            ps.println(election.mostVotedCandidates() + "\n");
+            ps.println(election.electedByMajority() + "\n");
+            ps.println(election.electedByProportion() + "\n");
+            ps.println(election.votesByCoalition() + "\n");
+            ps.println(election.votesByParty() + "\n");
+            ps.println("Total de votos nominais: " + election.amountOfVotes());
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            System.err.println("ERROR: The encoding " + args[1] + " is not valid!");
+            e.printStackTrace();
+        }
     }
 }
