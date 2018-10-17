@@ -4,13 +4,13 @@ import java.util.*;
 
 
 /**
- * Class reponsible to make the calculations of the elections and print on the screen
+ * Class reponsible to make the calculations of the elections. It's methods return various informations about the process as the most voted candidates, the elected candidates according to proportiona system and majority system and the number of votes per candidate, party and coalition.
  */
 public class Election
 {
-    private Map<String, Coalition> coalitions;
-    private List<Candidate> mostVoted = new ArrayList<Candidate>();
-    private int vacancies;
+    private Map<String, Coalition> coalitions; // Map with all coalitions
+    private List<Candidate> mostVoted = new ArrayList<Candidate>(); // List of candidates ordened by number of votes
+    private int vacancies; // Number of vacant positions or number of elected candidates
 
     /**
      * Election object's constructor method:
@@ -178,7 +178,7 @@ public class Election
         {
             for (Party party : coalition.getParties())
             {
-                ret += amountOfParties + " " + party.getName() + ", " + party.getVotes() + " votos, ";
+                ret += amountOfParties++ + " " + party.getName() + ", " + party.getVotes() + " votos, ";
                 int e = 0;
                 for (Candidate candidate : party.getCandidates())
                     if (candidate.getElected()) e++;

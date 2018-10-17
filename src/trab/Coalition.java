@@ -9,8 +9,8 @@ import java.util.*;
  */
 public class Coalition
 {
-    // Coalition's name
-    private String name=null;
+    // Coalition's identificator. Basicaly the names of the parties within it
+    private String name;
     // Coalition's parties set:
     private Set<Party> parties = new HashSet<Party>();
     // Coalition's number of votes:
@@ -87,12 +87,7 @@ public class Coalition
     {
         String ret = "Coligação: ";
         
-        for (Party party : parties)
-        {
-            ret += party.getName() + " / ";
-        }
-
-        ret += "\nVotes = " + votes;
+        ret += name + "\nVotes = " + votes;
 
         return ret;
     }

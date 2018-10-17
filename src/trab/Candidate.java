@@ -1,6 +1,7 @@
 package trab;
 
 import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * Class that represents a political candidate
@@ -34,7 +35,7 @@ public class Candidate implements Comparable<Candidate>
     private Party party; // Candidate's party
     private int votes; // Candidate's amount of votes
     private String percent; // Candidate's percentage of valid votes
-    private boolean elected; // boolean that is true if the candidate was elected
+    private boolean elected; // boolean that is true if the candidate was elected, else false
 
     /**
      * Candidate's constructor
@@ -112,14 +113,18 @@ public class Candidate implements Comparable<Candidate>
     @Override
     public String toString()
     {
-        String ret = "";
-        ret += name+" (" + party.getName() + ", " + votes + " votos)";
+        String ret = ""; // Return string
+        ret += name+" (" + party.getName() + ", " + votes + " votos)"; // Adding name, party and amount of votes to the return
 
-        String temp = party.getCoalition();
-        if(temp != null)
+        String temp = party.getCoalition(); // Geting the candidate's coalition name
+        Scanner cName = new Scanner(temp); // Seting a scanner to analyze the name
+        cName.useDelimiter("/"); // Seting the scanner dalimiter as '/'
+        cName.next(); // Jumping the first party in the name
+        if(cName.hasNext()) // If there are more than one party the coalition will be added, else it is irrelevant
         {
             ret += " - Coligação: " + temp;
         }
+        cName.close(); // Closing auxiliar scanner
         return ret;
     }
 

@@ -7,10 +7,10 @@ import java.util.*;
  */
 public class Party
 {
-    private String coalition;
+    private String coalition; // Name of the party's coalition
     private String name; // The party's name
     private int votes = 0; // The party's amount of votes
-    private Set<Candidate> candidates = new HashSet<Candidate>(); // The candidates that belong to the party
+    private Set<Candidate> candidates = new HashSet<Candidate>(); // Set of the candidates that belong to the party
 
     /**
      * Party's constructor
@@ -68,7 +68,7 @@ public class Party
     public void addCandidate(Candidate c)
     {
         this.votes += c.getVotes(); // Updating the party's amount of votes
-        candidates.add(c);
+        candidates.add(c); // Adding candidate
     }
 
     /**

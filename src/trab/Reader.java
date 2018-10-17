@@ -6,7 +6,7 @@ import java.util.*;
 public class Reader
 {
     /**
-     * Static method that reads a file given it's location
+     * Static method that reads a file, given it's location, with a given encoding. The file must have the format of the divulga.csv reports given by the brazilian Top Electoral Court (TSE).
      * 
      * @param filePath the location of the file that will be read
      * @param encoding the encoding used to write the file
@@ -14,11 +14,11 @@ public class Reader
     public static Election readFile(String filePath, String encoding)
     {
         Map<String, Coalition> coalitions = new HashMap<String, Coalition>(); // Map with all coalitions
-        boolean elected; // Tells if the candidate was elected
-        String aux, name, coalition, party, percent; // Auxiliar variables
+        boolean elected; // Mark elected candidates
+        String aux, name, coalition, party, percent; // Auxiliar reading variables
         int votes = 0; // Vote counter
-        int vacancies = 0;
-        Coalition temp; // Auxiliar coalition variable
+        int vacancies = 0; // Number of elected candidates
+        Coalition temp; // Auxiliar variable
 
         Locale brLocale = Locale.forLanguageTag("pt-Br"); // Setting the locale for Brazilian Portuguese
 
@@ -39,9 +39,9 @@ public class Reader
                 if (aux.startsWith("*")) // Incrementing the number of vacancies if an elected candidate is found
                 {
                     vacancies++;
-                    elected = true;
+                    elected = true; // Marking the candidate as elected
                 }
-                else
+                else // Else, marking candidate as non elected
                     elected = false;
 
                 line.next(); // Jumping the candidate's number
@@ -50,11 +50,11 @@ public class Reader
                 Scanner parties = new Scanner(line.next()); // Setting an auxiliar scanner for the parties and coalitions
                 parties.useDelimiter("-"); // Setting delimiter as '-'
                 party = (parties.next()).trim(); // Getting the candidate's party
-                if (parties.hasNext()) // If it has a coalition
+                if (parties.hasNext()) // If it is in a coalition
                 {
                     coalition = (parties.next()).trim(); // Getting the coalition
                 }
-                else // Otherwise, it will be saved as the party's name
+                else // Else, it will be seted as the party's name. It needs to be in a coalition to integrate the coalitions map
                 {
                     coalition = party;
                 }
@@ -63,16 +63,13 @@ public class Reader
                 votes = line.nextInt(); // Getting the candidate's votes
                 percent = line.next(); // Getting the candidate's percent of votes
 
-                line.close();
+                line.close(); // Closing the line scanner
 
                 temp = coalitions.get(coalition); // Serching the candidate's coalition
                 if (temp == null) // If the coalition don't exists...
                 {
                     temp = new Coalition(); // Creating a new coalition
-                    if (!(coalition.equals(party))) // Set the coalition's name if there are more than one party
-                    {
-                        temp.setName(coalition);
-                    }
+                    temp.setName(coalition); // Set the coalition's name
                     coalitions.put(coalition, temp); // And add it to the Map
                 }
 
